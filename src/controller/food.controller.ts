@@ -36,16 +36,21 @@ export const addFoodItem = async(req:Request,res:Response,next:NextFunction)=>{
 
         if(!foodItem){
             return res.status(400).json({
-                message:"Food item not added"
+                message:"Food item not added",
+                success:false
             })
         }
 
         return res.status(200).json({
-            message:"Food item added successfully"
+            message:"Food item added successfully",
+            success:true
         })
       
     } catch (error) {
-        next(error);
+        return res.status(200).json({
+            message:"Internal server error",
+            success:false
+        })
     }
 }
 
@@ -66,15 +71,20 @@ export const bookFood = async(req:Request,res:Response,next:NextFunction)=>{
 
         if(!foodItem){
             return res.status(400).json({
+            success:false,
                 message:"Food item not booked"
             })
         }
 
         return res.status(200).json({
-            message:"Food item booked successfully"
+            message:"Food item booked successfully",
+            success:true
         })
     } catch (error) {
-        next(error);
+        return res.status(200).json({
+            message:"Internal server error",
+            success:false
+        })
     }
 }
 
@@ -97,10 +107,14 @@ export const getFoodsByUser = async(req:Request,res:Response,next:NextFunction)=
         }
 
         return res.status(200).json({
-            message:"Food item booked successfully",
-            foodItem
+            message:"Food item Fetched successfully",
+            foodItem,
+            success:true
         })
     } catch (error) {
-        next(error);
+        return res.status(200).json({
+            message:"Internal server error",
+            success:false
+        })
     }
 }
