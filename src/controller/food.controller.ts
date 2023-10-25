@@ -118,3 +118,35 @@ export const getFoodsByUser = async(req:Request,res:Response,next:NextFunction)=
         })
     }
 }
+
+//get food by Uploaded user
+
+export const getFoodsByUploadedUser = async(req:Request,res:Response,next:NextFunction)=>{
+    try {
+        const {useremail} = req.body;
+        const foodItem = await prisma.food.findMany({
+            where:{
+                email:useremail,
+
+            },
+        });
+
+        if(!foodItem){
+            return res.status(400).json({
+                message:"Food item not found",
+                success:false
+            })
+        }
+
+        return res.status(200).json({
+            message:"Food item Fetched successfully",
+            foodItem,
+            success:true
+        })
+    } catch (error) {
+        return res.status(200).json({
+            message:"Internal server error",
+            success:false
+        })
+    }
+} 
