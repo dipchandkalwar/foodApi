@@ -21,16 +21,19 @@ export const getFood = async (req: Request, res: Response, next: NextFunction) =
 };
 
 
+
+
 // add food 
 export const addFoodItem = async(req:Request,res:Response,next:NextFunction)=>{
     try {
-        const {name,email,phone,foods} = req.body;
+        const {name,email,phone,foods,address} = req.body;
   const foodItem =   await prisma.food.create({
             data:{
                 name,
                 email,
                 phone,
                 foods,
+                address
             }
         });
 
